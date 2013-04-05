@@ -81,6 +81,43 @@ class DotProjectBot(object):
             msg = u"«%s (%s hs)» was logged succesfully" % (description, str(hours))
             logging.info(msg)
 
+    def create_project(self, name, owner, company, startDate, endDate, status='0'):
+        url = self.base_url +  'index.php?m=projects&a=addedit'
+        response = self.br.open(url)
+        if 'name="project_name"' in response.read():
+            self.br.select_form('editFrm') #formulário comum a todos
+            
+            # liberando con
+            self.br.form.set_all_readonly(False) 
+            c=self.br.form.find_control("start_date")
+            c.disabled = False
+            c=self.br.form.find_control("end_date")
+            c.disabled = False
+            #Adicionando valores aos campos do fomulario:
+            self.br['project_name'] = name
+            self.br['project_owner'] = [owner]
+            self.br['project_company'] = [company]
+            self.br['start_date'] = startDate
+            self.br['end_date'] = endDate
+            self.br['project_status'] = [status]
+            
+            #definindo valores padroes para campos obrigatorios:
+            self.br['project_priority'] = ['0']
+            self.br['project_short_name'] = name[:3]
+            self.br['project_color_identifier'] = 'FFFFFF'
+            self.br['project_type'] = ['0']
+            
+            response = self.br.submit()
+        
+            if '<td class="message"> Projeto inserido</td>' in response.read():
+                return True
+            else:
+                raise DotProjectBot.LogFail('Nao foi possivel criar o projeto')
+                
+        
+        else:
+            raise DotProjectBot.LogFail('Não foi possível acessar o formulário de cadastro de projeto')
+
 
 
 
