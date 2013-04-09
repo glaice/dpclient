@@ -136,7 +136,7 @@ class DotProjectBot(object):
         return 0
 
     def create_user(self, user_name, user_goup, user_role, user_senha, user_senha_confirm, user_name_complete, user_email):
-        user_id = self.exist_user(name)
+        user_id = self.exist_user(user_name)
         if user_id:
             return 0
         url = self.base_url +  'index.php?m=admin&a=addedituser'
