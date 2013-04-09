@@ -1,4 +1,6 @@
 #!/usr/bin/python
+# -*- coding:UTF-8 -*-
+
 import os
 import sys
 import json
@@ -10,11 +12,16 @@ from browser import DotProjectBot
 def main():
     dpb = DotProjectBot("http://localhost/~glaice/dotproject")
     dpb.login("admin", "passwd")
-    dpb.create_project("testandoDPC", "1", "1", "15/04/2013", "20/04/2013")
-
+    project_id = dpb.create_project("testan", "1", "1", "20130415", "20130420")
+    
+    if project_id:
+        print "Projeto criado com sucesso"
+    else:
+        print "Projeto já existe"
 
 
 
 
 if __name__ == '__main__':
     main()
+

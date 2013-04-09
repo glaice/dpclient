@@ -82,6 +82,9 @@ class DotProjectBot(object):
             logging.info(msg)
 
     def create_project(self, name, owner, company, startDate, endDate, status='0'):
+        project_id = self.exist_project(name)
+        if project_id:
+            return 0
         url = self.base_url +  'index.php?m=projects&a=addedit'
         response = self.br.open(url)
         if 'name="project_name"' in response.read():
@@ -97,6 +100,8 @@ class DotProjectBot(object):
             self.br['project_name'] = name
             self.br['project_owner'] = [owner]
             self.br['project_company'] = [company]
+            self.br['project_start_date'] = startDate
+            self.br['project_end_date'] = endDate
             self.br['start_date'] = startDate
             self.br['end_date'] = endDate
             self.br['project_status'] = [status]
@@ -108,17 +113,48 @@ class DotProjectBot(object):
             self.br['project_type'] = ['0']
             
             response = self.br.submit()
+            
+            project_id=self.exist_project(name)
         
-            if '<td class="message"> Projeto inserido</td>' in response.read():
-                return True
-            else:
-                raise DotProjectBot.LogFail('Nao foi possivel criar o projeto')
+            return project_id
                 
         
         else:
             raise DotProjectBot.LogFail('Não foi possível acessar o formulário de cadastro de projeto')
 
 
+    def exist_project(self, project_name): 
+        url = self.base_url +  'index.php?m=projects'
+        response = self.br.open(url)
+        
+        my_link = "?m=projects&a=view&project_id="
+        projects = []
+        for link in self.br.links():
+            if my_link in link.url and link.text == project_name:
+                id=link.url.split("project_id=")[1]
+                return id
+        return 0
 
+    def create_user(self, user_name, user_goup, user_role, user_senha, user_senha_confirm, user_name_complete, user_email):
+        user_id = self.exist_user(name)
+        if user_id:
+            return 0
+        url = self.base_url +  'index.php?m=admin&a=addedituser'
+        response = self.br.open(url)
+        if 'name="project_name"' in response.read():
+            self.br.select_form('editFrm') #formulário comum a todos
+
+
+    def exist_user(self, user_name):
+        url = self.base_url +  'index.php?m=projects'
+        response = self.br.open(url)
+        
+        my_link = "?m=projects&a=view&project_id="
+        projects = []
+        for link in self.br.links():
+            if my_link in link.url and link.text == project_name:
+                id=link.url.split("project_id=")[1]
+                return id
+        return 0
 
 
