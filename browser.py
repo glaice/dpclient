@@ -125,36 +125,58 @@ class DotProjectBot(object):
 
     def exist_project(self, project_name): 
         url = self.base_url +  'index.php?m=projects'
-        response = self.br.open(url)
+        self.br.open(url)
         
         my_link = "?m=projects&a=view&project_id="
-        projects = []
         for link in self.br.links():
             if my_link in link.url and link.text == project_name:
-                id=link.url.split("project_id=")[1]
-                return id
+                project_id = link.url.split("project_id=")[1]
+                return project_id
         return 0
 
-    def create_user(self, user_name, user_goup, user_role, user_senha, user_senha_confirm, user_name_complete, user_email):
+    def create_user(self, user_name, user_passwd, user_passwd_check, contact_first_name, contact_last_name, user_email):
+        
         user_id = self.exist_user(user_name)
         if user_id:
             return 0
+        
         url = self.base_url +  'index.php?m=admin&a=addedituser'
-        response = self.br.open(url)
-        if 'name="project_name"' in response.read():
-            self.br.select_form('editFrm') #formulário comum a todos
+        self.br.open(url)
+        self.br.select_form('editFrm') #formulário comum a todos
+        # liberando con
+        self.br.form.set_all_readonly(False) 
+        #c=self.br.form.find_control("start_date")
+        #c.disabled = False
+        #c=self.br.form.find_control("end_date")
+        #c.disabled = False
+        #Adicionando valores aos campos do fomulario:
+        self.br['user_username'] = user_name
+        self.br['user_password'] = user_passwd
+        self.br['password_check'] = user_passwd_check
+        self.br['contact_first_name'] = contact_first_name
+        self.br['contact_last_name'] = contact_last_name
+        self.br['contact_email'] = user_email
+        
+        #definindo valores padroes para campos obrigatorios:
+        self.br['user_type'] = ['5']
+        self.br['user_role'] = ['14']
+        
+        self.br.submit()
+        
+        user_id=self.exist_user(user_name)
+    
+        return user_id
 
 
     def exist_user(self, user_name):
-        url = self.base_url +  'index.php?m=projects'
-        response = self.br.open(url)
+        url = self.base_url +  'index.php?m=admin&tab=0'
+        self.br.open(url)
         
-        my_link = "?m=projects&a=view&project_id="
-        projects = []
+        my_link = "?m=admin&a=viewuser&user_id="
         for link in self.br.links():
-            if my_link in link.url and link.text == project_name:
-                id=link.url.split("project_id=")[1]
-                return id
+            if my_link in link.url and link.text == user_name:
+                user_id=link.url.split("user_id=")[1]
+                return user_id
         return 0
 
 
