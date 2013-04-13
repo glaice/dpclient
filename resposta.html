@@ -1,0 +1,567 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<meta name="Description" content="dotProject Default Style" />
+	<meta name="Version" content="2.1.7" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<title>dotProject</title>
+	<link rel="stylesheet" type="text/css" href="./style/default/main.css" media="all" />
+	<style type="text/css" media="all">@import "./style/default/main.css";</style>
+	<link rel="shortcut icon" href="./style/default/images/favicon.ico" type="image/ico" />
+	<script type="text/javascript" src="http://localhost/~glaice/dotproject/js/base.js"></script>
+<script type="text/javascript" src="http://localhost/~glaice/dotproject/js/collapse.js"></script>
+<script type="text/javascript" src="http://localhost/~glaice/dotproject/lib/overlib/overlib.js"></script>
+</head>
+
+<body onload="this.focus();">
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+	<td><table width="100%" cellpadding="3" cellspacing="0" border="0"><tr>
+	<th style="background: url(style/default/images/titlegrad.jpg);" class="banner" align="left"><strong><a style='color: white' href='http://localhost/~glaice/dotproject'>dotProject&nbsp;2.1.7</a></strong>
+		</th>
+	<th align="right" width='50'><a href='http://www.dotproject.net/' ><img src="style/default/images/dp_icon.gif" border="0" alt="http://dotproject.net/" /></a></th>
+	</tr></table></td>
+</tr>
+<tr>
+	<td class="nav" align="left">
+	<table width="100%" cellpadding="3" cellspacing="0">
+	<tr>
+		<td>
+		<a href="?m=companies">Empresas</a> | <a href="?m=projects">Projetos</a> | <a href="?m=tasks">Tarefas</a> | <a href="?m=calendar">Calend&aacute;rio</a> | <a href="?m=files">Arquivos</a> | <a href="?m=contacts">Contatos</a> | <a href="?m=forums">F&oacute;runs</a> | <a href="?m=ticketsmith">Chamados</a> | <a href="?m=admin">Admin. de Usu&aacute;rios</a> | <a href="?m=system">Admin. do Sistema</a> | <a href="?m=departments">Departamentos</a> | <a href="?m=help">Ajuda</a> | <a href="?m=projectdesigner">ProjectDesigner</a>
+		</td>
+		<td nowrap="nowrap" align="right">
+		<form name="frm_new" method="get" action="./index.php">
+		<table cellpadding="0" cellspacing="0">
+		<tr><td>
+
+<select name="m" style="font-size:10px" onChange="javascript:f=document.frm_new;mod=f.m.options[f.m.selectedIndex].value;if (mod) f.submit();">
+	<option value="0" selected="selected">- Novo Item - </option>
+	<option value="companies">Empresa</option>
+	<option value="contacts">Contato</option>
+	<option value="calendar">Evento</option>
+	<option value="files">Arquivo</option>
+	<option value="projects">Projeto</option>
+</select>
+        <input type="hidden" name="a" value="addedit" />
+		</td></tr>
+		</table>
+		</form>
+		</td>
+	</tr>
+	</table>
+	</td>
+</tr>
+<tr>
+	<td>
+		<table cellspacing="0" cellpadding="3" border="0" width="100%">
+		<tr>
+			<td width="100%">Bem-vindo Admin Person</td>
+			<td nowrap="nowrap">
+				<a href="#" onClick="javascript:window.open('?m=help&dialog=1&hid=', 'contexthelp', 'width=400, height=400, left=50, top=50, scrollbars=yes, resizable=yes')">Ajuda</a> |
+				<a href="./index.php?m=admin&amp;a=viewuser&amp;user_id=1">Meus dados</a> |
+                              <b><a href="./index.php?m=tasks&amp;a=todo">A Fazer</a></b> |
+				<a href="./index.php?m=calendar&amp;a=day_view&amp;date=20130412">Hoje</a> |
+				<a href="?logout=-1">Sair do sistema</a>
+			</td>
+		</tr>
+		</table>
+	</td>
+</tr>
+</table>
+
+<table width="100%" cellspacing="0" cellpadding="4" border="0">
+<tr>
+<td valign="top" align="left" width="98%">
+<table cellspacing="0" cellpadding="1" border="0"><tr><td><img src="http://localhost/~glaice/dotproject/images/icons/stock_ok-16.png"  width="16" height="16" alt="http://localhost/~glaice/dotproject/images/icons/stock_ok-16.png" border="0" /></td><td class="message">Tarefa adicionada</td></tr></table>
+<table width="100%" border="0" cellpadding="1" cellspacing="1">
+<tr>
+<td width="42"><img src="http://localhost/~glaice/dotproject/modules/tasks/images/applet-48.png"  alt="http://localhost/~glaice/dotproject/modules/tasks/images/applet-48.png" border="0" /></td>
+<td align="left" width="100%" nowrap="nowrap"><h1>Tarefas</h1></td>
+<td align="right" nowrap="nowrap">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Procura:
+</td>
+<td align="right" nowrap="nowrap">
+<form action="?m=tasks" method="post" id="searchfilter">
+	<input type="text" class="text" size="20" name="searchtext" onchange="javascript:document.searchfilter.submit();" value=""title="Search in name and description fields"/><!--<input type="submit" class="button" value=">" title="Search in name and description fields"/>-->
+</form>
+</td>
+<td align="right" nowrap="nowrap">&nbsp;
+</td>
+<td align="right" nowrap="nowrap">
+	Usu&aacute;rio:
+</td>
+<td align="right" nowrap="nowrap">
+<form action="?m=tasks" method="post" name="userIdForm">
+	
+<select name="user_id" size="1" class="text" onchange="javascript:document.userIdForm.submit();">
+	<option value="9">contact_last_name, contact_first_name</option>
+	<option value="3">Falbo, Ricardo</option>
+	<option value="1" selected="selected">Person, Admin</option>
+	<option value="4">quirino, wancharle</option>
+	<option value="2">Quirino, Glaice</option>
+</select>
+
+</form>
+</td>
+<td align="right" nowrap="nowrap">&nbsp;
+</td>
+<td align="right" nowrap="nowrap">
+	Empresa:
+</td>
+<td align="right" nowrap="nowrap">
+<form action="?m=tasks" method="post" name="companyFilter">
+	
+<select name="f2" size=1 class=text onchange="javascript:document.companyFilter.submit();">
+	<option value="all" selected="selected">Todas as Empresas</option>
+	<option value="1">NEMO</option>
+</select>
+
+</form>
+</td>
+<td align="right" nowrap="nowrap">&nbsp;
+</td><td nowrap="nowrap" width="20" align="right">
+	<a href="#tasks.index" onClick="javascript:window.open('?m=help&dialog=1&hid=tasks.index', 'contexthelp', 'width=400,height=400,left=50,top=50,scrollbars=yes,resizable=yes')" title="Ajuda">
+		<img src="./images/icons/stock_help-16.png"  width="16" height="16" alt="Ajuda" border="0" />
+	</a>
+</td>
+</tr>
+</table>
+<table width="100%" border="0" cellpadding="1" cellspacing="1">
+<tr>
+<td width="42"><img src="http://localhost/~glaice/dotproject/images/icons/shim.gif"  alt="http://localhost/~glaice/dotproject/images/icons/shim.gif" border="0" /></td>
+<td align="left" width="100%" nowrap="nowrap"><h1></h1></td>
+<td align="right" nowrap="nowrap">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filtro de Tarefas:
+</td>
+<td align="right" nowrap="nowrap">
+<form action="?m=tasks" method="post" name="taskFilter">
+	
+<select name="f" size=1 class=text onchange="javascript:document.taskFilter.submit();">
+	<option value="my">Minhas Tarefas</option>
+	<option value="myunfinished" selected="selected">Minha tarefas inacabadas</option>
+	<option value="allunfinished">Todas as Tarefas n&atilde;o Finalizadas</option>
+	<option value="myproj">Meus Projetos</option>
+	<option value="mycomp">Todas as Tarefas da minha Empresa</option>
+	<option value="unassigned">Todas as Tarefeas (n&atilde;o associadas)</option>
+	<option value="taskcreated">Todas as Tarefas que Eu Criei</option>
+	<option value="all">Todas as Tarefas</option>
+	<option value="allfinished7days">Todas as Tarefas Encerradas nos &Uacute;ltimos 7 Dias</option>
+	<option value="myfinished7days">Minhas Tarefas Finalizadas nos &Uacute;ltimos 7 dias</option>
+</select>
+
+</form>
+</td>
+<td align="right" nowrap="nowrap">&nbsp;
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="4" cellspacing="0" width="100%">
+<tr>
+	<td nowrap="nowrap">
+		<strong><a href="?m=tasks&amp;a=todo&amp;user_id=1">minhas pend&ecirc;ncias</a> : <a href="?m=tasks&amp;pinned=1">minhas tarefas marcadas</a> : <a href="?m=tasks&amp;inactive=toggle">mostrar tarefas inativas</a> : <a href="?m=tasks&amp;a=tasksperuser">tarefas por usu&aacute;rio</a> : <a href="?m=projects&amp;a=reports">relat&oacute;rios</a></strong>
+	</td>
+</tr>
+</table>
+<script type="text/javaScript" language="javascript">
+function toggle_users(id) {
+  var element = document.getElementById(id);
+  element.style.display = (element.style.display == '' || element.style.display == "none") ? "inline" : "none";
+}
+
+</script>
+
+
+<table width="100%" border="0" cellpadding="2" cellspacing="1" class="tbl">
+<tr>
+  <th width="10">&nbsp;</th>
+  <th width="10">Marca</th>
+  <th width="10">Novo Registro</th>
+  <th width="20">Trabalho</th>
+  <th align="center"><a href="./index.php?m=tasks&amp;dotproject=75jl2oo2vbnslefgc87m4an1t2&amp;task_sort_item1=task_log_problem&amp;task_sort_type1=1&amp;task_sort_order1=3&amp;task_sort_item2=task_priority&amp;task_sort_type2=1&amp;task_sort_order2=4" class="hdr">P</a></th>
+  <th width="200"><a href="./index.php?m=tasks&amp;dotproject=75jl2oo2vbnslefgc87m4an1t2&amp;task_sort_item1=task_name&amp;task_sort_type1=2&amp;task_sort_order1=4" class="hdr">Nome da tarefa</a></th>
+  <th nowrap="nowrap"><a href="./index.php?m=tasks&amp;dotproject=75jl2oo2vbnslefgc87m4an1t2&amp;task_sort_item1=user_username&amp;task_sort_type1=2&amp;task_sort_order1=4" class="hdr">Respons&aacute;vel pela tarefa</a></th>
+  <th nowrap="nowrap">Usu&aacute;rios Associados</th>
+  <th nowrap="nowrap"><a href="./index.php?m=tasks&amp;dotproject=75jl2oo2vbnslefgc87m4an1t2&amp;task_sort_item1=task_start_date&amp;task_sort_type1=1&amp;task_sort_order1=4" class="hdr">Dia de In&iacute;cio</a></th>
+  <th nowrap="nowrap"><a href="./index.php?m=tasks&amp;dotproject=75jl2oo2vbnslefgc87m4an1t2&amp;task_sort_item1=task_duration&amp;task_sort_type1=1&amp;task_sort_order1=4" class="hdr">Dura&ccedil;&atilde;o</a>&nbsp;&nbsp;</th>
+  <th nowrap="nowrap"><a href="./index.php?m=tasks&amp;dotproject=75jl2oo2vbnslefgc87m4an1t2&amp;task_sort_item1=task_end_date&amp;task_sort_type1=1&amp;task_sort_order1=4" class="hdr">Data de Encerramento</a></th>
+  </tr>
+<form name="assFrm2" 
+			action="index.php?m=tasks&amp;a=index" method="post">
+<input type="hidden" name="del" value="1" />
+<input type="hidden" name="rm" value="0" />
+<input type="hidden" name="store" value="0" />
+<input type="hidden" name="dosql" value="do_task_assign_aed" />
+<input type="hidden" name="project_id" value="2" />
+<input type="hidden" name="hassign" />
+<input type="hidden" name="htasks" />
+
+<tr>
+  <td>
+  <a href="index.php?m=tasks&amp;f=myunfinished&amp;project_id=2">
+  <img src="./images/icons/collapse.gif" width="16" height="16" border="0" alt="show only this project" />
+  </a>
+  </td>
+  <td colspan="10">
+  <table width="100%" border="0">
+  <tr>
+	<!-- patch 2.12.04 display company name next to project name -->
+	<td nowrap style="border: outset #eeeeee 2px;background-color:#FFC0CB">
+	<a href="?m=projects&amp;a=view&amp;project_id=2">
+	<span style="color:#000000;text-decoration:none;">
+	<strong>NEMO :: TCC</strong></span></a>
+	</td>
+	<td width="79%">
+	22%
+	</td>
+  </tr>
+  </table>
+  </td>
+  <td colspan="3" align="right" valign="middle">
+  <table width="100%" border="0">
+  <tr>
+	<td align="right">
+	</td>
+  </tr>
+  </table>
+  </td>
+</tr>
+
+<tr>
+	<td>
+		<a href="?m=tasks&amp;a=addedit&amp;task_id=23">
+			<img src="./images/icons/pencil.gif" alt="Editar Tarefa" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td>
+		<a href="?m=tasks&amp;pin=1&task_id=23">
+			<img src="./images/icons/unpin.gif" alt="unpin Task" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td align="center"><a href="?m=tasks&amp;a=view&amp;task_id=23&tab=1">Registro</a></td>
+	<td align="right">0%</td>
+	<td align="center" nowrap="nowrap"></td><td width="90%">&nbsp;<a href="./index.php?m=tasks&amp;a=view&amp;task_id=23"  >task_nabjhjme</a></td><td nowrap="nowrap" align="center"><a href="?m=admin&amp;a=viewuser&amp;user_id=1">admin</a></td><td align="center" nowrap="nowrap"><a href="?m=admin&amp;a=viewuser&amp;user_id=1" title="Extent of Assignment:%; Free Capacity:%">admin (100%)</a></td><td nowrap="nowrap" align="center" style="">-</td><td align="center" nowrap="nowrap" style="">1 horas</td><td nowrap="nowrap" align="center" style="">-</td></tr>
+<tr>
+	<td>
+		<a href="?m=tasks&amp;a=addedit&amp;task_id=8">
+			<img src="./images/icons/pencil.gif" alt="Editar Tarefa" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td>
+		<a href="?m=tasks&amp;pin=1&task_id=8">
+			<img src="./images/icons/unpin.gif" alt="unpin Task" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td align="center"><a href="?m=tasks&amp;a=view&amp;task_id=8&tab=1">Registro</a></td>
+	<td align="right">0%</td>
+	<td align="center" nowrap="nowrap">
+		<img src="./images/icons/priority+1.gif"  width="13" height="16" alt="./images/icons/priority+1.gif" border="0" /></td><td width="90%"><a href="index.php?m=tasks&amp;a=index&close_task_id=8"><img src="images/icons/collapse.gif" align="center" border="0" alt="" /></a>&nbsp;<a href="./index.php?m=tasks&amp;a=view&amp;task_id=8"  >Mapeamentos</a></td><td nowrap="nowrap" align="center"><a href="?m=admin&amp;a=viewuser&amp;user_id=1">admin</a></td><td align="center" nowrap="nowrap"><a href="?m=admin&amp;a=viewuser&amp;user_id=1" title="Extent of Assignment:%; Free Capacity:%">admin (100%)</a> <a href="javascript: void(0);" onclick="javascript:toggle_users('users_8');" title="">(+1)</a><span style="display: none" id="users_8"><br /><a href="?m=admin&amp;a=viewuser&amp;user_id=2" title="Extent of Assignment:%; Free Capacity:%">glaice (100%)</a></span></td><td nowrap="nowrap" align="center" style="background-color:#cc6666;color:#ffffff">20/03/2013 08:15</td><td align="center" nowrap="nowrap" style="background-color:#cc6666;color:#ffffff">6 horas</td><td nowrap="nowrap" align="center" style="background-color:#cc6666;color:#ffffff">22/03/2013 17:00</td></tr>
+<tr>
+	<td>
+		<a href="?m=tasks&amp;a=addedit&amp;task_id=9">
+			<img src="./images/icons/pencil.gif" alt="Editar Tarefa" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td>
+		<a href="?m=tasks&amp;pin=1&task_id=9">
+			<img src="./images/icons/unpin.gif" alt="unpin Task" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td align="center"><a href="?m=tasks&amp;a=view&amp;task_id=9&tab=1">Registro</a></td>
+	<td align="right">0%</td>
+	<td align="center" nowrap="nowrap"></td><td width="90%"><img src="./images/corner-dots.gif" width="16" height="12" border="0" alt="" />&nbsp;<a href="./index.php?m=tasks&amp;a=view&amp;task_id=9"  >Mapeamento vertical de conceitos</a></td><td nowrap="nowrap" align="center"><a href="?m=admin&amp;a=viewuser&amp;user_id=1">admin</a></td><td align="center" nowrap="nowrap"><a href="?m=admin&amp;a=viewuser&amp;user_id=1" title="Extent of Assignment:%; Free Capacity:%">admin (100%)</a> <a href="javascript: void(0);" onclick="javascript:toggle_users('users_9');" title="">(+1)</a><span style="display: none" id="users_9"><br /><a href="?m=admin&amp;a=viewuser&amp;user_id=2" title="Extent of Assignment:%; Free Capacity:%">glaice (100%)</a></span></td><td nowrap="nowrap" align="center" style="background-color:#cc6666;color:#ffffff">20/03/2013 08:15</td><td align="center" nowrap="nowrap" style="background-color:#cc6666;color:#ffffff">2 horas</td><td nowrap="nowrap" align="center" style="background-color:#cc6666;color:#ffffff">22/03/2013 17:00</td></tr>
+<tr>
+	<td>
+		<a href="?m=tasks&amp;a=addedit&amp;task_id=10">
+			<img src="./images/icons/pencil.gif" alt="Editar Tarefa" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td>
+		<a href="?m=tasks&amp;pin=1&task_id=10">
+			<img src="./images/icons/unpin.gif" alt="unpin Task" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td align="center"><a href="?m=tasks&amp;a=view&amp;task_id=10&tab=1">Registro</a></td>
+	<td align="right">0%</td>
+	<td align="center" nowrap="nowrap"></td><td width="90%"><img src="./images/corner-dots.gif" width="16" height="12" border="0" alt="" />&nbsp;<a href="./index.php?m=tasks&amp;a=view&amp;task_id=10"  >Mapeamento vertical de relacionamentos</a></td><td nowrap="nowrap" align="center"><a href="?m=admin&amp;a=viewuser&amp;user_id=1">admin</a></td><td align="center" nowrap="nowrap"><a href="?m=admin&amp;a=viewuser&amp;user_id=1" title="Extent of Assignment:%; Free Capacity:%">admin (100%)</a> <a href="javascript: void(0);" onclick="javascript:toggle_users('users_10');" title="">(+1)</a><span style="display: none" id="users_10"><br /><a href="?m=admin&amp;a=viewuser&amp;user_id=2" title="Extent of Assignment:%; Free Capacity:%">glaice (100%)</a></span></td><td nowrap="nowrap" align="center" style="background-color:#cc6666;color:#ffffff">20/03/2013 08:15</td><td align="center" nowrap="nowrap" style="background-color:#cc6666;color:#ffffff">1 horas</td><td nowrap="nowrap" align="center" style="background-color:#cc6666;color:#ffffff">22/03/2013 17:00</td></tr>
+<tr>
+	<td>
+		<a href="?m=tasks&amp;a=addedit&amp;task_id=11">
+			<img src="./images/icons/pencil.gif" alt="Editar Tarefa" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td>
+		<a href="?m=tasks&amp;pin=1&task_id=11">
+			<img src="./images/icons/unpin.gif" alt="unpin Task" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td align="center"><a href="?m=tasks&amp;a=view&amp;task_id=11&tab=1">Registro</a></td>
+	<td align="right">0%</td>
+	<td align="center" nowrap="nowrap"></td><td width="90%"><img src="./images/corner-dots.gif" width="16" height="12" border="0" alt="" />&nbsp;<a href="./index.php?m=tasks&amp;a=view&amp;task_id=11"  >Mapeamento horizontal de conceitos</a></td><td nowrap="nowrap" align="center"><a href="?m=admin&amp;a=viewuser&amp;user_id=1">admin</a></td><td align="center" nowrap="nowrap"><a href="?m=admin&amp;a=viewuser&amp;user_id=1" title="Extent of Assignment:%; Free Capacity:%">admin (100%)</a> <a href="javascript: void(0);" onclick="javascript:toggle_users('users_11');" title="">(+1)</a><span style="display: none" id="users_11"><br /><a href="?m=admin&amp;a=viewuser&amp;user_id=2" title="Extent of Assignment:%; Free Capacity:%">glaice (100%)</a></span></td><td nowrap="nowrap" align="center" style="background-color:#cc6666;color:#ffffff">25/03/2013 08:00</td><td align="center" nowrap="nowrap" style="background-color:#cc6666;color:#ffffff">2 horas</td><td nowrap="nowrap" align="center" style="background-color:#cc6666;color:#ffffff">26/03/2013 16:00</td></tr>
+<tr>
+	<td>
+		<a href="?m=tasks&amp;a=addedit&amp;task_id=12">
+			<img src="./images/icons/pencil.gif" alt="Editar Tarefa" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td>
+		<a href="?m=tasks&amp;pin=1&task_id=12">
+			<img src="./images/icons/unpin.gif" alt="unpin Task" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td align="center"><a href="?m=tasks&amp;a=view&amp;task_id=12&tab=1">Registro</a></td>
+	<td align="right">5%</td>
+	<td align="center" nowrap="nowrap"></td><td width="90%"><img src="./images/corner-dots.gif" width="16" height="12" border="0" alt="" />&nbsp;<a href="./index.php?m=tasks&amp;a=view&amp;task_id=12"  >Mapeamento horizontal de relacionamentos</a></td><td nowrap="nowrap" align="center"><a href="?m=admin&amp;a=viewuser&amp;user_id=1">admin</a></td><td align="center" nowrap="nowrap"><a href="?m=admin&amp;a=viewuser&amp;user_id=1" title="Extent of Assignment:%; Free Capacity:%">admin (100%)</a> <a href="javascript: void(0);" onclick="javascript:toggle_users('users_12');" title="">(+1)</a><span style="display: none" id="users_12"><br /><a href="?m=admin&amp;a=viewuser&amp;user_id=2" title="Extent of Assignment:%; Free Capacity:%">glaice (100%)</a></span></td><td nowrap="nowrap" align="center" style="background-color:#cc6666;color:#ffffff">25/03/2013 08:00</td><td align="center" nowrap="nowrap" style="background-color:#cc6666;color:#ffffff">1 horas</td><td nowrap="nowrap" align="center" style="background-color:#cc6666;color:#ffffff">01/04/2013 16:00</td></tr>
+<tr>
+	<td>
+		<a href="?m=tasks&amp;a=addedit&amp;task_id=4">
+			<img src="./images/icons/pencil.gif" alt="Editar Tarefa" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td>
+		<a href="?m=tasks&amp;pin=1&task_id=4">
+			<img src="./images/icons/unpin.gif" alt="unpin Task" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td align="center"><a href="?m=tasks&amp;a=view&amp;task_id=4&tab=1">Registro</a></td>
+	<td align="right">0%</td>
+	<td align="center" nowrap="nowrap"></td><td width="90%">&nbsp;<a href="./index.php?m=tasks&amp;a=view&amp;task_id=4"  >Integrar o dotProject ao ODE</a></td><td nowrap="nowrap" align="center"><a href="?m=admin&amp;a=viewuser&amp;user_id=1">admin</a></td><td align="center" nowrap="nowrap"><a href="?m=admin&amp;a=viewuser&amp;user_id=1" title="Extent of Assignment:%; Free Capacity:%">admin (100%)</a> <a href="javascript: void(0);" onclick="javascript:toggle_users('users_4');" title="">(+1)</a><span style="display: none" id="users_4"><br /><a href="?m=admin&amp;a=viewuser&amp;user_id=2" title="Extent of Assignment:%; Free Capacity:%">glaice (100%)</a></span></td><td nowrap="nowrap" align="center" style="background-color:#ffeebb">26/03/2013 08:15</td><td align="center" nowrap="nowrap" style="background-color:#ffeebb">1 horas</td><td nowrap="nowrap" align="center" style="background-color:#ffeebb">12/04/2013 17:00</td></tr>
+<tr>
+	<td>
+		<a href="?m=tasks&amp;a=addedit&amp;task_id=5">
+			<img src="./images/icons/pencil.gif" alt="Editar Tarefa" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td>
+		<a href="?m=tasks&amp;pin=1&task_id=5">
+			<img src="./images/icons/unpin.gif" alt="unpin Task" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td align="center"><a href="?m=tasks&amp;a=view&amp;task_id=5&tab=1">Registro</a></td>
+	<td align="right">5%</td>
+	<td align="center" nowrap="nowrap"></td><td width="90%">&nbsp;<a href="./index.php?m=tasks&amp;a=view&amp;task_id=5"  >Escrever monografia</a></td><td nowrap="nowrap" align="center"><a href="?m=admin&amp;a=viewuser&amp;user_id=1">admin</a></td><td align="center" nowrap="nowrap"><a href="?m=admin&amp;a=viewuser&amp;user_id=1" title="Extent of Assignment:%; Free Capacity:%">admin (100%)</a> <a href="javascript: void(0);" onclick="javascript:toggle_users('users_5');" title="">(+1)</a><span style="display: none" id="users_5"><br /><a href="?m=admin&amp;a=viewuser&amp;user_id=2" title="Extent of Assignment:%; Free Capacity:%">glaice (100%)</a></span></td><td nowrap="nowrap" align="center" style="background-color:#e6eedd">02/04/2013 08:15</td><td align="center" nowrap="nowrap" style="background-color:#e6eedd">30 horas</td><td nowrap="nowrap" align="center" style="background-color:#e6eedd">24/04/2013 17:00</td></tr>
+<tr>
+	<td>
+		<a href="?m=tasks&amp;a=addedit&amp;task_id=24">
+			<img src="./images/icons/pencil.gif" alt="Editar Tarefa" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td>
+		<a href="?m=tasks&amp;pin=1&task_id=24">
+			<img src="./images/icons/unpin.gif" alt="unpin Task" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td align="center"><a href="?m=tasks&amp;a=view&amp;task_id=24&tab=1">Registro</a></td>
+	<td align="right">0%</td>
+	<td align="center" nowrap="nowrap"></td><td width="90%">&nbsp;<a href="./index.php?m=tasks&amp;a=view&amp;task_id=24"  >tme</a></td><td nowrap="nowrap" align="center"><a href="?m=admin&amp;a=viewuser&amp;user_id=1">admin</a></td><td align="center" nowrap="nowrap"><a href="?m=admin&amp;a=viewuser&amp;user_id=1" title="Extent of Assignment:%; Free Capacity:%">admin (100%)</a></td><td nowrap="nowrap" align="center" style="">12/04/2013 17:00</td><td align="center" nowrap="nowrap" style="">1 horas</td><td nowrap="nowrap" align="center" style="">26/04/2013 17:00</td></tr>
+<tr>
+	<td>
+		<a href="?m=tasks&amp;a=addedit&amp;task_id=25">
+			<img src="./images/icons/pencil.gif" alt="Editar Tarefa" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td>
+		<a href="?m=tasks&amp;pin=1&task_id=25">
+			<img src="./images/icons/unpin.gif" alt="unpin Task" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td align="center"><a href="?m=tasks&amp;a=view&amp;task_id=25&tab=1">Registro</a></td>
+	<td align="right">0%</td>
+	<td align="center" nowrap="nowrap"></td><td width="90%"><a href="index.php?m=tasks&amp;a=index&close_task_id=25"><img src="images/icons/collapse.gif" align="center" border="0" alt="" /></a>&nbsp;<a href="./index.php?m=tasks&amp;a=view&amp;task_id=25"  >tmge</a></td><td nowrap="nowrap" align="center"><a href="?m=admin&amp;a=viewuser&amp;user_id=1">admin</a></td><td align="center" nowrap="nowrap"><a href="?m=admin&amp;a=viewuser&amp;user_id=1" title="Extent of Assignment:%; Free Capacity:%">admin (100%)</a> <a href="javascript: void(0);" onclick="javascript:toggle_users('users_25');" title="">(+3)</a><span style="display: none" id="users_25"><br /><a href="?m=admin&amp;a=viewuser&amp;user_id=3" title="Extent of Assignment:%; Free Capacity:%">falbo (100%)</a><br /><a href="?m=admin&amp;a=viewuser&amp;user_id=2" title="Extent of Assignment:%; Free Capacity:%">glaice (100%)</a><br /><a href="?m=admin&amp;a=viewuser&amp;user_id=4" title="Extent of Assignment:%; Free Capacity:%">wancharle (100%)</a></span></td><td nowrap="nowrap" align="center" style="">12/04/2013 17:00</td><td align="center" nowrap="nowrap" style="">1 horas</td><td nowrap="nowrap" align="center" style="">26/04/2013 17:00</td></tr>
+<tr>
+	<td>
+		<a href="?m=tasks&amp;a=addedit&amp;task_id=26">
+			<img src="./images/icons/pencil.gif" alt="Editar Tarefa" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td>
+		<a href="?m=tasks&amp;pin=1&task_id=26">
+			<img src="./images/icons/unpin.gif" alt="unpin Task" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td align="center"><a href="?m=tasks&amp;a=view&amp;task_id=26&tab=1">Registro</a></td>
+	<td align="right">0%</td>
+	<td align="center" nowrap="nowrap"></td><td width="90%"><img src="./images/corner-dots.gif" width="16" height="12" border="0" alt="" />&nbsp;<a href="./index.php?m=tasks&amp;a=view&amp;task_id=26"  >dfdgf</a></td><td nowrap="nowrap" align="center"><a href="?m=admin&amp;a=viewuser&amp;user_id=1">admin</a></td><td align="center" nowrap="nowrap"><a href="?m=admin&amp;a=viewuser&amp;user_id=1" title="Extent of Assignment:%; Free Capacity:%">admin (100%)</a></td><td nowrap="nowrap" align="center" style="background-color:#ffeebb">11/04/2013 08:00</td><td align="center" nowrap="nowrap" style="background-color:#ffeebb">1 horas</td><td nowrap="nowrap" align="center" style="background-color:#ffeebb">27/04/2013 17:00</td></tr>
+<tr>
+	<td>
+		<a href="?m=tasks&amp;a=addedit&amp;task_id=27">
+			<img src="./images/icons/pencil.gif" alt="Editar Tarefa" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td>
+		<a href="?m=tasks&amp;pin=1&task_id=27">
+			<img src="./images/icons/unpin.gif" alt="unpin Task" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td align="center"><a href="?m=tasks&amp;a=view&amp;task_id=27&tab=1">Registro</a></td>
+	<td align="right">0%</td>
+	<td align="center" nowrap="nowrap"></td><td width="90%"><img src="./images/corner-dots.gif" width="16" height="12" border="0" alt="" /><a href="index.php?m=tasks&amp;a=index&close_task_id=27"><img src="images/icons/collapse.gif" align="center" border="0" alt="" /></a>&nbsp;<a href="./index.php?m=tasks&amp;a=view&amp;task_id=27"  >erere</a></td><td nowrap="nowrap" align="center"><a href="?m=admin&amp;a=viewuser&amp;user_id=1">admin</a></td><td align="center" nowrap="nowrap"><a href="?m=admin&amp;a=viewuser&amp;user_id=1" title="Extent of Assignment:%; Free Capacity:%">admin (100%)</a> <a href="javascript: void(0);" onclick="javascript:toggle_users('users_27');" title="">(+2)</a><span style="display: none" id="users_27"><br /><a href="?m=admin&amp;a=viewuser&amp;user_id=2" title="Extent of Assignment:%; Free Capacity:%">glaice (100%)</a><br /><a href="?m=admin&amp;a=viewuser&amp;user_id=4" title="Extent of Assignment:%; Free Capacity:%">wancharle (100%)</a></span></td><td nowrap="nowrap" align="center" style="background-color:#ffeebb">11/04/2013 08:15</td><td align="center" nowrap="nowrap" style="background-color:#ffeebb">1 horas</td><td nowrap="nowrap" align="center" style="background-color:#ffeebb">27/04/2013 17:00</td></tr>
+<tr>
+	<td>
+		<a href="?m=tasks&amp;a=addedit&amp;task_id=43">
+			<img src="./images/icons/pencil.gif" alt="Editar Tarefa" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td>
+		<a href="?m=tasks&amp;pin=1&task_id=43">
+			<img src="./images/icons/unpin.gif" alt="unpin Task" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td align="center"><a href="?m=tasks&amp;a=view&amp;task_id=43&tab=1">Registro</a></td>
+	<td align="right">0%</td>
+	<td align="center" nowrap="nowrap"></td><td width="90%"><img src="./images/shim.gif" width="16" height="12" border="0" alt="" /><img src="./images/corner-dots.gif" width="16" height="12" border="0" alt="" />&nbsp;<a href="./index.php?m=tasks&amp;a=view&amp;task_id=43"  >kkkkkkk</a></td><td nowrap="nowrap" align="center"><a href="?m=admin&amp;a=viewuser&amp;user_id=1">admin</a></td><td align="center" nowrap="nowrap"><a href="?m=admin&amp;a=viewuser&amp;user_id=1" title="Extent of Assignment:%; Free Capacity:%">admin (100%)</a> <a href="javascript: void(0);" onclick="javascript:toggle_users('users_43');" title="">(+2)</a><span style="display: none" id="users_43"><br /><a href="?m=admin&amp;a=viewuser&amp;user_id=2" title="Extent of Assignment:%; Free Capacity:%">glaice (100%)</a><br /><a href="?m=admin&amp;a=viewuser&amp;user_id=4" title="Extent of Assignment:%; Free Capacity:%">wancharle (100%)</a></span></td><td nowrap="nowrap" align="center" style="">12/04/2013 08:00</td><td align="center" nowrap="nowrap" style="">1 horas</td><td nowrap="nowrap" align="center" style="">27/04/2013 17:00</td></tr>
+<tr>
+	<td>
+		<a href="?m=tasks&amp;a=addedit&amp;task_id=32">
+			<img src="./images/icons/pencil.gif" alt="Editar Tarefa" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td>
+		<a href="?m=tasks&amp;pin=1&task_id=32">
+			<img src="./images/icons/unpin.gif" alt="unpin Task" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td align="center"><a href="?m=tasks&amp;a=view&amp;task_id=32&tab=1">Registro</a></td>
+	<td align="right">0%</td>
+	<td align="center" nowrap="nowrap"></td><td width="90%">&nbsp;<a href="./index.php?m=tasks&amp;a=view&amp;task_id=32"  >tmf</a></td><td nowrap="nowrap" align="center"><a href="?m=admin&amp;a=viewuser&amp;user_id=1">admin</a></td><td align="center" nowrap="nowrap"><a href="?m=admin&amp;a=viewuser&amp;user_id=1" title="Extent of Assignment:%; Free Capacity:%">admin (100%)</a></td><td nowrap="nowrap" align="center" style="">12/04/2013 17:00</td><td align="center" nowrap="nowrap" style="">1 horas</td><td nowrap="nowrap" align="center" style="">26/04/2013 17:00</td></tr>
+<tr>
+	<td>
+		<a href="?m=tasks&amp;a=addedit&amp;task_id=44">
+			<img src="./images/icons/pencil.gif" alt="Editar Tarefa" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td>
+		<a href="?m=tasks&amp;pin=1&task_id=44">
+			<img src="./images/icons/unpin.gif" alt="unpin Task" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td align="center"><a href="?m=tasks&amp;a=view&amp;task_id=44&tab=1">Registro</a></td>
+	<td align="right">0%</td>
+	<td align="center" nowrap="nowrap"></td><td width="90%">&nbsp;<a href="./index.php?m=tasks&amp;a=view&amp;task_id=44"  >tmdsffsdfdf dfs</a></td><td nowrap="nowrap" align="center"><a href="?m=admin&amp;a=viewuser&amp;user_id=1">admin</a></td><td align="center" nowrap="nowrap"><a href="?m=admin&amp;a=viewuser&amp;user_id=1" title="Extent of Assignment:%; Free Capacity:%">admin (100%)</a></td><td nowrap="nowrap" align="center" style="">12/04/2013 17:00</td><td align="center" nowrap="nowrap" style="">1 horas</td><td nowrap="nowrap" align="center" style="">26/04/2013 17:00</td></tr>
+<tr>
+	<td>
+		<a href="?m=tasks&amp;a=addedit&amp;task_id=45">
+			<img src="./images/icons/pencil.gif" alt="Editar Tarefa" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td>
+		<a href="?m=tasks&amp;pin=1&task_id=45">
+			<img src="./images/icons/unpin.gif" alt="unpin Task" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td align="center"><a href="?m=tasks&amp;a=view&amp;task_id=45&tab=1">Registro</a></td>
+	<td align="right">0%</td>
+	<td align="center" nowrap="nowrap"></td><td width="90%">&nbsp;<a href="./index.php?m=tasks&amp;a=view&amp;task_id=45"  >tm65s</a></td><td nowrap="nowrap" align="center"><a href="?m=admin&amp;a=viewuser&amp;user_id=1">admin</a></td><td align="center" nowrap="nowrap"><a href="?m=admin&amp;a=viewuser&amp;user_id=1" title="Extent of Assignment:%; Free Capacity:%">admin (100%)</a></td><td nowrap="nowrap" align="center" style="">12/04/2013 17:00</td><td align="center" nowrap="nowrap" style="">1 horas</td><td nowrap="nowrap" align="center" style="">26/04/2013 17:00</td></tr>
+<tr>
+	<td>
+		<a href="?m=tasks&amp;a=addedit&amp;task_id=46">
+			<img src="./images/icons/pencil.gif" alt="Editar Tarefa" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td>
+		<a href="?m=tasks&amp;pin=1&task_id=46">
+			<img src="./images/icons/unpin.gif" alt="unpin Task" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td align="center"><a href="?m=tasks&amp;a=view&amp;task_id=46&tab=1">Registro</a></td>
+	<td align="right">0%</td>
+	<td align="center" nowrap="nowrap"></td><td width="90%"><a href="index.php?m=tasks&amp;a=index&close_task_id=46"><img src="images/icons/collapse.gif" align="center" border="0" alt="" /></a>&nbsp;<a href="./index.php?m=tasks&amp;a=view&amp;task_id=46"  >tm65ss</a></td><td nowrap="nowrap" align="center"><a href="?m=admin&amp;a=viewuser&amp;user_id=1">admin</a></td><td align="center" nowrap="nowrap"><a href="?m=admin&amp;a=viewuser&amp;user_id=1" title="Extent of Assignment:%; Free Capacity:%">admin (100%)</a> <a href="javascript: void(0);" onclick="javascript:toggle_users('users_46');" title="">(+2)</a><span style="display: none" id="users_46"><br /><a href="?m=admin&amp;a=viewuser&amp;user_id=2" title="Extent of Assignment:%; Free Capacity:%">glaice (100%)</a><br /><a href="?m=admin&amp;a=viewuser&amp;user_id=4" title="Extent of Assignment:%; Free Capacity:%">wancharle (100%)</a></span></td><td nowrap="nowrap" align="center" style="">12/04/2013 17:00</td><td align="center" nowrap="nowrap" style="">1 horas</td><td nowrap="nowrap" align="center" style="">26/04/2013 17:00</td></tr>
+<tr>
+	<td>
+		<a href="?m=tasks&amp;a=addedit&amp;task_id=47">
+			<img src="./images/icons/pencil.gif" alt="Editar Tarefa" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td>
+		<a href="?m=tasks&amp;pin=1&task_id=47">
+			<img src="./images/icons/unpin.gif" alt="unpin Task" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td align="center"><a href="?m=tasks&amp;a=view&amp;task_id=47&tab=1">Registro</a></td>
+	<td align="right">0%</td>
+	<td align="center" nowrap="nowrap"></td><td width="90%"><img src="./images/corner-dots.gif" width="16" height="12" border="0" alt="" />&nbsp;<a href="./index.php?m=tasks&amp;a=view&amp;task_id=47"  >asdfsadf</a></td><td nowrap="nowrap" align="center"><a href="?m=admin&amp;a=viewuser&amp;user_id=1">admin</a></td><td align="center" nowrap="nowrap"><a href="?m=admin&amp;a=viewuser&amp;user_id=1" title="Extent of Assignment:%; Free Capacity:%">admin (100%)</a></td><td nowrap="nowrap" align="center" style="">12/04/2013 08:15</td><td align="center" nowrap="nowrap" style="">1 horas</td><td nowrap="nowrap" align="center" style="">27/04/2013 17:00</td></tr>
+<tr>
+	<td>
+		<a href="?m=tasks&amp;a=addedit&amp;task_id=48">
+			<img src="./images/icons/pencil.gif" alt="Editar Tarefa" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td>
+		<a href="?m=tasks&amp;pin=1&task_id=48">
+			<img src="./images/icons/unpin.gif" alt="unpin Task" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td align="center"><a href="?m=tasks&amp;a=view&amp;task_id=48&tab=1">Registro</a></td>
+	<td align="right">0%</td>
+	<td align="center" nowrap="nowrap"></td><td width="90%">&nbsp;<a href="./index.php?m=tasks&amp;a=view&amp;task_id=48"  >tm6s3</a></td><td nowrap="nowrap" align="center"><a href="?m=admin&amp;a=viewuser&amp;user_id=1">admin</a></td><td align="center" nowrap="nowrap"><a href="?m=admin&amp;a=viewuser&amp;user_id=1" title="Extent of Assignment:%; Free Capacity:%">admin (100%)</a> <a href="javascript: void(0);" onclick="javascript:toggle_users('users_48');" title="">(+2)</a><span style="display: none" id="users_48"><br /><a href="?m=admin&amp;a=viewuser&amp;user_id=2" title="Extent of Assignment:%; Free Capacity:%">glaice (100%)</a><br /><a href="?m=admin&amp;a=viewuser&amp;user_id=4" title="Extent of Assignment:%; Free Capacity:%">wancharle (100%)</a></span></td><td nowrap="nowrap" align="center" style="">12/04/2013 17:00</td><td align="center" nowrap="nowrap" style="">1 horas</td><td nowrap="nowrap" align="center" style="">26/04/2013 17:00</td></tr>
+<tr>
+	<td>
+		<a href="?m=tasks&amp;a=addedit&amp;task_id=49">
+			<img src="./images/icons/pencil.gif" alt="Editar Tarefa" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td>
+		<a href="?m=tasks&amp;pin=1&task_id=49">
+			<img src="./images/icons/unpin.gif" alt="unpin Task" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td align="center"><a href="?m=tasks&amp;a=view&amp;task_id=49&tab=1">Registro</a></td>
+	<td align="right">0%</td>
+	<td align="center" nowrap="nowrap"></td><td width="90%">&nbsp;<a href="./index.php?m=tasks&amp;a=view&amp;task_id=49"  >tm6s3j</a></td><td nowrap="nowrap" align="center"><a href="?m=admin&amp;a=viewuser&amp;user_id=1">admin</a></td><td align="center" nowrap="nowrap"><a href="?m=admin&amp;a=viewuser&amp;user_id=1" title="Extent of Assignment:%; Free Capacity:%">admin (100%)</a> <a href="javascript: void(0);" onclick="javascript:toggle_users('users_49');" title="">(+1)</a><span style="display: none" id="users_49"><br /><a href="?m=admin&amp;a=viewuser&amp;user_id=4" title="Extent of Assignment:%; Free Capacity:%">wancharle (100%)</a></span></td><td nowrap="nowrap" align="center" style="">12/04/2013 17:00</td><td align="center" nowrap="nowrap" style="">1 horas</td><td nowrap="nowrap" align="center" style="">26/04/2013 17:00</td></tr>
+<tr>
+	<td>
+		<a href="?m=tasks&amp;a=addedit&amp;task_id=50">
+			<img src="./images/icons/pencil.gif" alt="Editar Tarefa" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td>
+		<a href="?m=tasks&amp;pin=1&task_id=50">
+			<img src="./images/icons/unpin.gif" alt="unpin Task" border="0" width="12" height="12" />
+		</a>
+	</td>
+	<td align="center"><a href="?m=tasks&amp;a=view&amp;task_id=50&tab=1">Registro</a></td>
+	<td align="right">0%</td>
+	<td align="center" nowrap="nowrap"></td><td width="90%">&nbsp;<a href="./index.php?m=tasks&amp;a=view&amp;task_id=50"  >tm6s3jd</a></td><td nowrap="nowrap" align="center"><a href="?m=admin&amp;a=viewuser&amp;user_id=1">admin</a></td><td align="center" nowrap="nowrap"><a href="?m=admin&amp;a=viewuser&amp;user_id=1" title="Extent of Assignment:%; Free Capacity:%">admin (100%)</a></td><td nowrap="nowrap" align="center" style="">12/04/2013 17:00</td><td align="center" nowrap="nowrap" style="">1 horas</td><td nowrap="nowrap" align="center" style="">26/04/2013 17:00</td></tr><tr>
+	<td colspan="7">Summaries: </td>
+	<td>00/00/0000</td>
+	<td align="center">53 horas</td>
+	<td>27/04/2013</td>
+	<td></td>
+</tr>
+<tr>
+  <td colspan="11" align="right">
+	<a href="index.php?m=tasks&amp;a=index&amp;open_task_all=1">Expand All</a> :
+	<a href="index.php?m=tasks&amp;a=index&amp;close_task_all=1">Collapse All</a>
+	&nbsp;(On Page)&nbsp;
+<!-- removed project-level report buttons per Mantis Report #2374
+  <input type="button" class="button" value="Relat&oacute;rios" 
+   onclick="javascript:window.location='index.php?m=projects&a=reports&project_id=2';" />
+-->
+  <input type="button" class="button" value="Gr&aacute;fico de Gantt" 
+		onclick="javascript:window.location='index.php?m=tasks&amp;a=viewgantt&amp;project_id=2';" />
+	</form>
+  </td>
+</tr>
+</table>
+<table>
+<tr>
+  <td>Chave:&nbsp;&nbsp;</td>
+  <td style="background-color:#FFFFFF; color:#000000" width="10">&nbsp;</td>
+  <td>=Tarefa Futura&nbsp;&nbsp;</td>
+  <td style="background-color:#E6EEDD; color:#000000" width="10">&nbsp;</td>
+  <td>=Iniciadas e no prazo&nbsp;&nbsp;</td>
+  <td style="background-color:#FFEEBB; color:#000000" width="10">&nbsp;</td>
+  <td>=Deveriam ter iniciado&nbsp;&nbsp;</td>
+  <td style="background-color:#CC6666; color:#000000" width="10">&nbsp;</td>
+  <td>=Atraso&nbsp;&nbsp;</td>
+  <td style="background-color:#AADDAA; color:#000000" width="10">&nbsp;</td>
+  <td>=Feito&nbsp;&nbsp;
+		</td>
+</tr>
+</table>
+<iframe name="thread" src="http://localhost/~glaice/dotproject/modules/index.html" width="0" height="0" frameborder="0"></iframe>	</td>
+</tr>
+</table>
+</body>
+</html>

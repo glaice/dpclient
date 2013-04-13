@@ -178,5 +178,95 @@ class DotProjectBot(object):
                 user_id=link.url.split("user_id=")[1]
                 return user_id
         return 0
+    
+    def create_task(self, project_id, task_name, task_owner, task_parent, start_date, end_date, resources, resources_list):
+        task_id = self.exist_task(task_name)
+        if task_id:
+            return 0
+        print "passei pelo return"
+        url = self.base_url +  'index.php?m=tasks&a=addedit&task_project='+project_id
+        self.br.open(url)
+        self.br.select_form('editFrm') #formulário comum a todos
+        # liberando con
+        self.br.form.set_all_readonly(False) 
+        #c=self.br.form.find_control("start_date")
+        #c.disabled = False
+        #c=self.br.form.find_control("end_date")
+        #c.disabled = False
+        #Adicionando valores aos campos do fomulario:
+        self.br['task_name'] = task_name
+        #definindo valores padroes para campos obrigatorios:
+        self.br['task_priority'] = ['0']
+        
 
-
+        
+        #self.br.select_form('detailFrm')
+        self.br.new_control('text', 'dept_ids', {'valor':["0"]})
+        self.br.new_control('text', 'dosql', {'valor':"do_task_aed"})
+        self.br.new_control('text',"email_comment",{'valor':""})
+        self.br.new_control('text', "end_date", {'valor':"28/04/2013"})
+        self.br.new_control('text', 'end_hour', {'valor':"17"})
+        self.br.new_control('text', 'end_minute', {'valor':'00'})
+        self.br.new_control('text','hassign',{'value': resources_list})
+        self.br.new_control('text','hdependencies', {'valor':''})
+        self.br.new_control('text','hperc_assign',{'value':"1=100;4=100;2=400;"})
+        self.br.new_control('text','percentage_assignment',{'value':  "100"})
+        self.br.new_control('text','resources',{'value': resources})
+        self.br.new_control('text','start_date', {'valor':"13/04/2013"})
+        self.br.new_control('text','start_hour', {'valor':'08'})
+        self.br.new_control('text','start_minute',{'valor':'30'})
+        self.br.new_control('text','task_minute', {'valor':'30'})
+        self.br.new_control('text','task_access', {'valor':'0'})
+        self.br.new_control('text','task_contacts', {'valor':''})
+        self.br.new_control('text','task_description', {'valor':''})
+        self.br.new_control('text','task_duration',{'valor':'1'})
+        self.br.new_control('text','task_duration_type',{'valor':'1'})
+        self.br.new_control('text','task_dynamic',{'valor': '0'})
+        self.br.new_control('text','task_end_date',{ 'value':end_date})
+        self.br.new_control('text','task_id', {'valor':'0'})
+        self.br.new_control('text','task_owner',{'value':task_owner})
+        self.br.new_control('text','task_parent',{ 'value': task_parent})
+        self.br.new_control('text','task_percent_complete', {'valor':'0'})
+        self.br.new_control('text','task_priority', {'valor':'0'})
+        self.br.new_control('text','task_project', {'value':project_id})
+        self.br.new_control('text','task_related_url', {'valor':''})
+        self.br.new_control('text','task_start_date',{'value':start_date})
+        self.br.new_control('text','task_status',{'value':'0'})
+        self.br.new_control('text','task_target_budget',{'value':''})
+        self.br.new_control('text','task_type',{'value':'0'})
+        #self.br.select_form('datesFrm')
+        #self.br.form.set_all_readonly(False)
+        #c=self.br.form.find_control("start_date")
+        #c.disabled = False
+        #c=self.br.form.find_control("end_date")
+        #c.disabled = False 
+        #self.br['start_date'] = start_date
+        #self.br['end_date'] = end_date
+        
+        #self.br.select_form('resourceFrm')
+        #self.br.form.set_all_readonly(False)
+        
+        
+        #self.br.select_form'editF')
+        self.br.fixup()
+        response = self.br.submit()
+        
+        #checar a resposta:
+        #with open("resposta.html","w") as f:
+        #   f.write(response.read())
+        
+        task_id=self.exist_task(task_name)
+        print "id task_id="+str(task_id)
+    
+        return task_id
+    
+    def exist_task(self, task_name):
+        url = self.base_url +  'index.php?m=tasks'
+        self.br.open(url).read()
+        
+        my_link = "./index.php?m=tasks&a=view&task_id="
+        for link in self.br.links():
+            if my_link in link.url and link.text == task_name:
+                task_id=link.url.split("task_id=")[1]
+                return task_id
+        return 0
