@@ -31,7 +31,7 @@ def main():
 
     
 
-    task_id = dpb.create_task("2", "tmjjjj", "1", "", "201304121700", "201304261700", "3", "1, 4, 2")
+    task_id = dpb.create_task("2", "tarefa 3", "1", "", "201304121700", "201304261700", ["4","3"], "1,3,4")
 
     if task_id:
         print "task criado com sucesso"
