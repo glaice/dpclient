@@ -61,29 +61,55 @@ class DotProjectBot(object):
         else:
             logging.info("logged in")
 
-    def log_task(self, dp_task_id, date, hours, description):
+    def log_task(self, dp_task_id, log_task_name, date,  task_percent_complete, hours, description):
+        #if self.exist_log_task(dp_task_id, log_task_name):
+         #   return 0
+        
         url = self.base_url + 'index.php?m=tasks&a=view&task_id=%d&tab=1' % int(dp_task_id)
         response = self.br.open(url)
-        if '<td class="error">Task ID is invalid' in response.read():
-            raise DotProjectBot.InvalidTask("The task %d doesn't exists in" \
-                    "dP or you don't have the permission to see it" % dp_task_id)
+        
+        #if '<td class="error">Task ID is invalid' in response.read():
+        #   raise DotProjectBot.InvalidTask("The task %d doesn't exists in" \
+        #          "dP or you don't have the permission to see it" % dp_task_id)
 
-        self.br.select_form('editFrm')
-        self.br.form.set_all_readonly(False)
-        self.br['task_log_date'] = date.strftime('%Y%m%d')
-        self.br['task_log_hours'] = str(hours)
-        self.br['task_log_description'] = description
-        response = self.br.submit()
-
-        if not '<td class="message">Task Log inserted</td>' in response.read():
-            raise DotProjectBot.LogFail('Something seems to be wrong. Please check %s' % url)
+        if 'name="task_log_name"' in response.read():
+            self.br.select_form('editFrm')
+            self.br.form.set_all_readonly(False)
+            
+            c=self.br.find_control('task_log_name', nr=0)
+            self.br.form.controls.remove(c)
+            c=self.br.find_control('task_log_name', nr=0)
+            self.br.form.controls.remove(c)
+            
+            value = log_task_name
+            self.br.new_control('selectcontrol','task_log_name',{'value': value})
+            #self.br['task_log_date'] = date.strftime('%Y%m%d')
+            self.br['task_log_date'] = date
+            self.br['task_percent_complete'] = task_percent_complete
+            self.br['task_log_hours'] = str(hours)
+            self.br['task_log_description'] = description
+            
+            self.br.fixup()
+            response = self.br.submit()
+            #return self.exist_log_task(log_task_name)
+            return 1   
         else:
-            msg = u"«%s (%s hs)» was logged succesfully" % (description, str(hours))
-            logging.info(msg)
+            raise DotProjectBot.LogFail('Não foi possível acessar o formulário de cadastro de Log')
+
+            
+    def exist_log_task(self, dp_task_id, log_task_name): 
+        url = self.base_url +  'index.php?m=tasks&a=view&task_id=%d&tab=1' % int(dp_task_id)
+        self.br.open(url)
+        
+        my_link = '<td width="30%" style="">taref3</td>'
+        #for td in self.br.links():
+        if my_link in self.br.forms():
+                return 1
+        return 0
 
     def create_project(self, name, owner, company, startDate, endDate, status='0'):
-        project_id = self.exist_project(name)
-        if project_id:
+        project_id = self.exist_project(name.strip())
+        if project_id > 0:
             return 0
         url = self.base_url +  'index.php?m=projects&a=addedit'
         response = self.br.open(url)
@@ -131,12 +157,12 @@ class DotProjectBot(object):
         for link in self.br.links():
             if my_link in link.url and link.text == project_name:
                 project_id = link.url.split("project_id=")[1]
-                return project_id
+                return int(project_id)
         return 0
 
     def create_user(self, user_name, user_passwd, user_passwd_check, contact_first_name, contact_last_name, user_email):
         
-        user_id = self.exist_user(user_name)
+        user_id = self.exist_user(user_name.strip())
         if user_id:
             return 0
         
@@ -176,12 +202,12 @@ class DotProjectBot(object):
         for link in self.br.links():
             if my_link in link.url and link.text == user_name:
                 user_id=link.url.split("user_id=")[1]
-                return user_id
+                return int(user_id)
         return 0
     
-    def create_task(self, project_id, task_name, task_owner, task_parent, start_date, end_date, resources, resources_list):
-        task_id = self.exist_task(task_name)
-        if task_id:
+    def create_task(self, project_id, task_name, task_owner, task_parent, start_date, end_date, resources, resources_list, contacts):
+        task_id = self.exist_task(task_name.strip())
+        if task_id > 0 :
             return 0
         print "passei pelo return"
         url = self.base_url +  'index.php?m=tasks&a=addedit&task_project='+project_id
@@ -192,6 +218,7 @@ class DotProjectBot(object):
         self.br['task_name'] = task_name
         #definindo valores padroes para campos obrigatorios:
         self.br['task_priority'] = ['0']
+        self.br['task_contacts'] = contacts
         
         #self.br.set_debug_http(True)
         
@@ -205,7 +232,7 @@ class DotProjectBot(object):
         self.br.new_control('text','task_parent',{ 'value': task_parent})
         self.br.new_control('text','task_project', {'value':project_id})
         self.br.new_control('text','task_start_date',{'value':start_date})
-        self.br.new_control('selectcontrol','resources',{'value': resources})
+       # self.br.new_control('selectcontrol','resources',{'value': resources})
   
         self.br.fixup()
         response = self.br.submit()
